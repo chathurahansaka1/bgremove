@@ -9,7 +9,6 @@
         :root {
             --neon-green: #39ff14;
             --dark-background: #0f0f0f;
-            --deep-black: #000000;
             --neon-glow: rgba(57, 255, 20, 0.5);
         }
 
@@ -115,6 +114,13 @@
             margin-top: 20px;
         }
 
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
         .image-preview img {
             max-width: 300px;
             max-height: 300px;
@@ -129,6 +135,11 @@
         .image-preview img.loaded {
             opacity: 1;
             transform: scale(1);
+        }
+
+        .image-label {
+            color: var(--neon-green);
+            font-weight: bold;
         }
 
         .btn {
@@ -182,12 +193,6 @@
             100% { width: 0; }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -232,8 +237,14 @@
             </div>
 
             <div class="image-preview">
-                <img id="originalImage" src="" style="display:none;">
-                <img id="processedImage" src="" style="display:none;">
+                <div class="image-container">
+                    <img id="originalImage" src="" style="display:none;">
+                    <span class="image-label">Original Image</span>
+                </div>
+                <div class="image-container">
+                    <img id="processedImage" src="" style="display:none;">
+                    <span class="image-label">Processed Image</span>
+                </div>
             </div>
 
             <div class="action-buttons">
@@ -262,6 +273,7 @@
     <script>
     class BackgroundRemover {
         constructor() {
+            // Replace with your actual Remove.bg API key
             this.apiKey = 'ojshWDiDJJpY1QxefZ5crDwB';
             this.initElements();
             this.addEventListeners();
@@ -362,7 +374,7 @@
         downloadImage() {
             const link = document.createElement('a');
             link.href = this.processedImage.src;
-            link.download = 'processed_image.png';
+            link.download = 'processed_image_no_bg.png';
             link.click();
         }
     }
